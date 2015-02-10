@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block main_content %}
+	<h1>
+		{% block filter_title %}Filter Page{% endblock %}
+	</h1>
+  {% load comments %}
+	{% get_comment_form for event as form %}
+<table>
+  <form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <tr>
+      <td colspan="2">
+        <input type="submit" name="submit" value="Post">
+        <input type="submit" name="preview" value="Preview">
+      </td>
+    </tr>
+  </form>
+</table>
+	<br/><br/><br/><br/>
+	{% for field in form %}
+		{{field.label}}-{{field.data}} <br/>
+	{% endfor %}
+{% endblock %}

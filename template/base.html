@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Telde{% endblock %}</title>
+    
+    {% comment %}
+    -----------------------------------------------------------------------------------------------------
+        load static files
+    -----------------------------------------------------------------------------------------------------
+    {% endcomment %}
+    {% load staticfiles %}    
+    <link rel="stylesheet" href="{% static "style.css" %}" />
+    <link rel="stylesheet" href="{% static "bootstrap.css"%}"/>
+    <link rel="stylesheet" href="{% static "bootstrap-responsive.css" %}" />
+    <script src="{% static "js/jquery-1.3.2.min.js" %}"></script>
+    <script src="{% static "js/script.js" %}"></script>
+    <script src="{% static "js/cufon-yui.js" %}"></script>
+    <script src="{% static "js/arial.js" %}"></script>
+    <script src="{% static "js/cuf_run.js" %}"> </script>
+
+    {% block include_js %}
+
+    {% endblock %}
+{% comment %} <script src="{% static "js/bootstrap.js" %}"></script> {% endcomment %} 
+    <script src="{% static "js/jquery.min.js" %}"></script>
+  <script src="{% static "js/highcharts.js" %}"></script> 
+<style type="text/css">
+body {
+        /*padding-top: 20px;
+        padding-bottom: 60px;*/
+  margin:0;
+  padding:0;
+  width:100%;
+  color:#9958954;
+  /*font:normal 12px/1.8em Arial, Helvetica, sans-serif;*/
+  /*background:url(images/bg.jpg);*/
+
+      }
+
+      /* Custom container */
+      .container {
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      .container > hr {
+        margin: 60px 0;
+      }
+
+      //** Main marketing message and sign up button */
+      /*.jumbotron {
+        margin: 80px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 100px;
+        line-height: 1;
+      }
+      .jumbotron .lead {
+        font-size: 24px;
+        line-height: 1.25;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      /*.marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }*/
+*/*/
+
+      /* Customize the navbar links to be fill the entire space of the .navbar */
+      .navbar .navbar-inner {
+        padding: 0;
+      }
+      .navbar .nav {
+        margin: 0;
+        display: table;
+        width: 100%;
+      }
+      .navbar .nav li {
+        display: table-cell;
+        width: 1%;
+        float: none;
+      }
+      .navbar .nav li a {
+        font-weight: bold;
+        text-align: center;
+        border-left: 1px solid rgba(255,255,255,.75);
+        border-right: 1px solid rgba(0,0,0,.1);
+      }
+      .navbar .nav li:first-child a {
+        border-left: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      .navbar .nav li:last-child a {
+        border-right: 0;
+        border-radius: 0 3px 3px 0;
+      }
+    </style>
+    {% block load_javascript_css %}
+
+    {% endblock %}
+
+  </head>
+
+  <body>
+
+<div class="container">
+  <!-- <section> -->
+      <h1 class="muted"><span>Tel</span>de<small>Telecom Data Analysis</small></h1>
+   <!-- </section> -->
+  <!-- <div class="main_resize">
+    <div class="header"> -->
+    {% comment %}
+    -----------------------------------------------------------------------------------------------------
+        header block  <a href="{% url 'polls:detail' poll.id %}">Vote again?</a>>>
+    -----------------------------------------------------------------------------------------------------
+    {% endcomment %}
+
+  	{% block header %}
+    <div class="navbar">
+  	 <div class="navbar-inner">
+         <div class="container">
+        <ul class="nav">
+          <li class=""><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'analysis:index' %}">Analysis</a></li>
+          <li><a href="{% url 'visualize:index' %}">Visualizations</a></li>
+          <li><a href="{% url 'profiling:index' %}">Profiling</a></li>
+          {% comment %}
+          <!-- <li><a href="{% url 'about' %}">About Us</a></li> -->
+          {% endcomment %}
+        </ul>
+      <!-- <div class="clr"></div> -->
+    </div>
+  </div>
+    </div>
+  	{% endblock %}
+
+    {% comment %}
+    -----------------------------------------------------------------------------------------------------
+        end header
+    -----------------------------------------------------------------------------------------------------
+    {% endcomment %}
+
+    {% block main_content %}
+      
+    {% endblock %}
+
+
+    {% block extra_body %}{% endblock %}
+
+
+    {% comment %}
+    -----------------------------------------------------------------------------------------------------
+        footer block
+    -----------------------------------------------------------------------------------------------------
+    {% endcomment %}
+  </div>
+</div>
+
+    {% block footer %}
+    <div class="clr"></div>
+    <div class="footer_resize">
+      <p class="lf pull-right" >
+      <p>&copy; 2013 Telde, Inc. &middot; <a href="#">Contact Us</a> &middot; <a href="#">Help</a></p>
+      <div class="clr"></div>
+    </div>
+    {% endblock %}
+</div>
+</body>
+</html>
+

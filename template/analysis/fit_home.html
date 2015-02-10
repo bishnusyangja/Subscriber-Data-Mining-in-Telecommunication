@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block load_javascript_css %}
+{% load staticfiles %}
+	<link rel="stylesheet" href="{% static "jquery-ui.css" %}" />
+	<script src="{% static "js/jquery-1.9.1.js"%}"></script>
+	<script src="{% static "js/jquery-ui.js" %}"></script>
+	<script>
+		  $(function() {
+		    $( "#sdatepicker" ).datepicker();
+		    $( "#edatepicker" ).datepicker();
+		  });
+	</script>
+{% endblock %}
+
+{% block main_content %}
+<h3>
+		{% block filter_title %}Filter Data{% endblock %}
+</h3>
+	<br/>
+{% block filter_button %}
+	<table>
+			<tr>
+				<td width="100px"><b>Gender</b></td>
+				<td><b>Age-Range</b></td>
+				<td><b> Select </b></td>
+				<td><b>Time</b></td>
+				<td><b>Date</b></td>
+				<td><b>Aggregation By</b></td>
+			</tr>
+		<form action='sample' method='post'>
+			{% csrf_token %}
+			<tr>
+				<td>					
+					<input type="radio" name = "gender" id="1" value="0"/>
+					<label>Male</label><br/>					
+					<input type="radio" name = "gender" id="2" value="1"/>
+					<label>Female</label>
+					
+				</td>
+				<td>
+					<select name="start_age">
+						<option value="-1">Age (L)</option>
+						<script type="text/javascript">
+							for(i=16;i<72;i++)
+								{
+									document.write('<option value="'+i+'">'+i+'</option>');
+								}
+						</script>
+						
+					</select>
+					<select name="end_age">
+						<option value="-1">Age (U)</option>
+						<script type="text/javascript">
+							for(i=16;i<72;i++)
+								{
+									document.write('<option value="'+i+'">'+i+'</option>');
+								}
+						</script>
+					</select>
+	<!-- 				<input type="text" placeholder="start age" name="start_age"/>
+					<input type="text" placeholder="end age" name="end_age"/>						
+	 -->			</td>
+				<td>
+					<select name="select"> 
+						<option value="select">select</option> 
+				        <option value="avg">Avg</option> 
+						<option value="sum">Sum</option>
+						<option value="count">Count</option>
+						<option value="max">Max</option>
+						<option value="min">Min</option>  
+					</select>	
+					<select name="colName"> 
+						<option value="select">Col Name</option> 
+				        <option value="duration">duration</option>
+					</select> 							
+				</td>
+				<td>
+					<select name="startTime">
+						<option value="-1">Time (L)</option>
+						<script type="text/javascript">						
+							for(i=1;i<5;i++)
+								{
+									document.write('<option value="'+i+'">'+i+'</option>');
+								}
+						</script>
+					</select>
+					<select name="endTime">
+						<option value="-1">Time (U)</option>
+						<script type="text/javascript">
+							for(i=1;i<5;i++)
+								{
+									document.write('<option value="'+i+'">'+i+'</option>');
+								}
+						</script>
+					</select>
+				</td>
+				<td>
+					<input type="text" placeholder="start date" name="start_date" id = "sdatepicker" />
+
+					<input type="text" placeholder="end date" name="end_date" id="edatepicker"/>	
+				</td>
+				<td>
+					<select name="aggregation"> 
+						<option value="select">select</option> 
+					    <option value="grpBy">Group By</option> 
+					</select>
+					<select name="aggId"> 
+						<option value="select">select</option> 
+					    <option value="weeks">weeks</option>
+					    <option value="date">date</option>
+					    <option value="quetDay">quarterday</option>
+					    <option value="hours">hours</option>					    
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan=6><input type="submit" value="Filter" /> </td>
+			</tr>
+		</form>
+	</table>
+	<br/>
+	<br/>
+	{% if dates_demo %}
+		<p> Found {{dates_demo|length }} people. </p>
+		<table>
+			<tr><td><b>||  SN  |</b></td><td><b>|  Mobile Number  |</b></td><td><b>|  Age  ||</b></td></tr>
+			{% for date in dates_demo %} 
+			<tr><td>{{forloop.counter}}</td>
+			<td>{{ date.card_no }}</td>
+			<td>{{ date.age }}</td></tr>
+			{% endfor %}
+		</table>
+
+	{% else %}
+		<p><b>No demo record found</b></p>
+	{% endif %}
+
+	{% if dates_fact_table %}
+		<p> Found {{dates_fact_table|length }} call detail records. </p>
+		<table>
+			<tr><td><b>|| SN |</b></td><td><b>|  Mobile Number |</b></td><td><b>|  Dutration |</b></td><td><b>|Day of week |</b></td></tr>
+			{% for date in dates_fact_table %} 
+			<tr><td>{{forloop.counter}}</td>
+			<td>{{ date.card_no }}</td>
+			<td>{{ date.duration }}</td>
+			<td>{{ date.Day_of_week }}</td>
+		</tr>
+			{% endfor %}
+		</table>
+	
+	{% else %}
+		<p><b>No call details record found</b></p>
+	{% endif %}
+	<br/>
+	{% comment %}
+
+		{% if dates_fact_table %}
+			<p> Found {{dates_fact_table|length }} people. </p>
+			<table>
+				<tr><td><b>SN|</b></td><td><b>|Mobile Number</b></td><td><b>|Dutration |</b></td><td><b>|Day of week |</b></td></tr>
+				{% for date in dates_fact_table %} 
+				<tr><td>{{forloop.counter}}</td>
+				<td>{{ date.card_no }}</td>
+				<td>{{ date.duration }}</td>
+				<td>{{ date.Day_of_week }}</td>
+			</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<p><b>No record found</b></p>
+		{% endif %}
+		<br/>
+	{% endcomment %}
+{% endblock %}
+<h3>
+		{% block filter_end %}Thank you for filtering data{% endblock %}
+</h3>
+{% endblock %}
